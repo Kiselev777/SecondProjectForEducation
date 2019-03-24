@@ -16,7 +16,7 @@ class FileDiv {
 
     }
 
-    static void lineDiv(String inputName, int countLine, String outputName, boolean flag) throws IOException {
+    static void lineDiv(String inputName, String outputName, int countLine,  boolean flag) throws IOException {
         int count = 1;
         int iterator = 1;
         BufferedReader reader = new BufferedReader(new FileReader(new File(inputName)));
@@ -29,7 +29,8 @@ class FileDiv {
                 name = String.format("%s%s.txt", outputName, intToChar(count - 1));
             }
             FileWriter file = new FileWriter(name);
-            while (iterator <= countLine && firstLine != null) {
+            while (true) {
+                if (iterator > countLine || firstLine == null) break;
                 file.write(firstLine + "\n");
                 iterator++;
                 firstLine = reader.readLine();
@@ -42,7 +43,7 @@ class FileDiv {
 
     }
 
-    static void charDiv(String inputName, int countChar, String outputName, boolean flag) throws IOException {
+    static void charDiv(String inputName,String outputName, int countChar,  boolean flag) throws IOException {
         int count = 1;
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         int iterator = 1;
@@ -56,7 +57,8 @@ class FileDiv {
                 name = String.format("%s%s.txt", outputName, intToChar(count - 1));
             }
             FileWriter file = new FileWriter(name);
-            while (iterator <= countChar && firstChar > -1) {
+            while (true) {
+                if (iterator > countChar || firstChar <= -1) break;
                 file.write((char) firstChar);
                 iterator++;
                 firstChar = reader.read();
@@ -68,7 +70,7 @@ class FileDiv {
         reader.close();
     }
 
-    static void fileDiv(String inputName, int countChar, String outputName, boolean flag) throws IOException {
+    static void fileDiv(String inputName,String outputName, int countChar,  boolean flag) throws IOException {
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         BufferedReader reader = new BufferedReader(new FileReader(new File(inputName)));
         int count = 0;
@@ -79,7 +81,7 @@ class FileDiv {
         }
         int countChars = (count % countChar == 0) ? count / countChar : count / countChar + 1;
         FileDiv.charDiv(
-                inputName, countChars, outputName, flag);
+                inputName, outputName,countChars,  flag);
     }
 }
 

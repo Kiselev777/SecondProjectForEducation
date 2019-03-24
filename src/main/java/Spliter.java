@@ -19,6 +19,9 @@ public class Spliter {
     @Argument(required = true, index = 0)
     private String inputName;
 
+    public Spliter() {
+    }
+
     public static void main(String[] args) throws IOException {
         new Spliter().launcher(args);
 
@@ -40,11 +43,11 @@ public class Spliter {
             outputName = "x";
         if (outputName.equals("-")) outputName = inputName;
         if (fileCount != -1) {
-            FileDiv.fileDiv(inputName, fileCount, outputName, nameToNumber);
+            FileDiv.fileDiv(inputName, outputName, fileCount, nameToNumber);
         } else if (charsSize != -1) {
-            FileDiv.charDiv(inputName, charsSize, outputName, nameToNumber);
+            FileDiv.charDiv(inputName, outputName, charsSize, nameToNumber);
         } else {
-            FileDiv.lineDiv(inputName, linesSize, outputName, nameToNumber);
+            FileDiv.lineDiv(inputName, outputName, linesSize, nameToNumber);
         }
 
     }
