@@ -34,7 +34,7 @@ public class Spliter {
         } catch (CmdLineException e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
-            System.err.println("java -jar split.jar -d -l|-c|-n num -o basicOutputName inputFileName");
+            System.err.println("java -jar spliter.jar -d -l|-c|-n num -o basicOutputName inputFileName");
             parseString.printUsage(System.err);
         }
         FileDiv file=new FileDiv(inputName, outputName, linesSize, nameToNumber, fileCount, charsSize);
