@@ -3,9 +3,9 @@ import java.io.*;
 class FileDiv {
     private String outputName;
     private boolean nameToNumber;
-    private int linesSize ;
-    private int fileCount ;
-    private int charsSize ;
+    private int linesSize;
+    private int fileCount;
+    private int charsSize;
     private String inputName;
 
     private static String intToChar(int number) {
@@ -38,15 +38,15 @@ class FileDiv {
             outputName = "x";
         if (outputName.equals("-")) outputName = inputName;
         if (fileCount != -1) {
-                fileDiv( fileCount);
+            fileDiv(fileCount);
         } else if (charsSize != -1) {
-                charDiv( charsSize);
+            charDiv(charsSize);
         } else {
-                lineDiv(linesSize);
+            lineDiv(linesSize);
         }
     }
 
-    private  void lineDiv( int countLine) throws IOException {
+    private void lineDiv(int countLine) throws IOException {
         if (countLine <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         int count = 1;
         int iterator = 1;
@@ -74,7 +74,7 @@ class FileDiv {
 
     }
 
-    private  void charDiv( int countChar) throws IOException {
+    private void charDiv(int countChar) throws IOException {
         int count = 1;
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         int iterator = 1;
@@ -101,7 +101,7 @@ class FileDiv {
         reader.close();
     }
 
-    private  void fileDiv( int countChar) throws IOException {
+    private void fileDiv(int countChar) throws IOException {
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         BufferedReader reader = new BufferedReader(new FileReader(new File(inputName)));
         int count = 0;
