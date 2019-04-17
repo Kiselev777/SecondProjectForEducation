@@ -17,22 +17,21 @@ public class FileDivTest {
             BufferedReader reader2 = new BufferedReader(new FileReader(file2));
             String s = reader.readLine();
             String s2 = reader2.readLine();
-            while (true){
+            while (true) {
                 if ((s == null && s2 != null) || (s != null && s2 == null))
                     return false;
-                if (s==null && s2==null)
+                if (s == null && s2 == null)
                     break;
                 if (!s.equals(s2))
                     return false;
-                s=reader.readLine();
-                s2=reader2.readLine();
+                s = reader.readLine();
+                s2 = reader2.readLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return true;
     }
-
 
 
     @Test
@@ -52,13 +51,10 @@ public class FileDivTest {
 
             new FileDiv("obama.txt", "kisilevPresident", -1, false, -1, 0).run();
             Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks123a.txt")));
-        }
-        catch (IllegalArgumentException ignored){
+        } catch (IllegalArgumentException ignored) {
 
         }
-
         new FileDiv("obama.txt", "kisilevPresident", -1, false, 2, -1).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks1234a.txt")));
-
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File("src\\main\\resources\\kiseliks1234a.txt")));
     }
 }
