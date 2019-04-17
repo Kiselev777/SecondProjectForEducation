@@ -1,6 +1,12 @@
 import java.io.*;
 
-class FileDiv extends Spliter {
+class FileDiv {
+    private String outputName;
+    private boolean nameToNumber;
+    private int linesSize ;
+    private int fileCount ;
+    private int charsSize ;
+    private String inputName;
 
     private static String intToChar(int number) {
         if (number < 0) {
@@ -32,15 +38,15 @@ class FileDiv extends Spliter {
             outputName = "x";
         if (outputName.equals("-")) outputName = inputName;
         if (fileCount != -1) {
-                FileDiv.fileDiv(inputName, outputName, fileCount, nameToNumber);
+                fileDiv( fileCount);
         } else if (charsSize != -1) {
-                FileDiv.charDiv(inputName, outputName, charsSize, nameToNumber);
+                charDiv( charsSize);
         } else {
-                FileDiv.lineDiv(inputName, outputName, linesSize, nameToNumber);
+                lineDiv(linesSize);
         }
     }
 
-    private static void lineDiv(String inputName, String outputName, int countLine, boolean flag) throws IOException {
+    private  void lineDiv( int countLine) throws IOException {
         if (countLine <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         int count = 1;
         int iterator = 1;
@@ -48,7 +54,7 @@ class FileDiv extends Spliter {
         String firstLine = reader.readLine();
         String name;
         while (firstLine != null) {
-            if (flag) {
+            if (nameToNumber) {
                 name = String.format("%s%s.txt", outputName, String.valueOf(count));
             } else {
                 name = String.format("%s%s.txt", outputName, intToChar(count - 1));
@@ -68,7 +74,7 @@ class FileDiv extends Spliter {
 
     }
 
-    private static void charDiv(String inputName, String outputName, int countChar, boolean flag) throws IOException {
+    private  void charDiv( int countChar) throws IOException {
         int count = 1;
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         int iterator = 1;
@@ -76,7 +82,7 @@ class FileDiv extends Spliter {
         int firstChar = reader.read();
         String name;
         while (firstChar > -1) {
-            if (flag) {
+            if (nameToNumber) {
                 name = String.format("%s%s.txt", outputName, String.valueOf(count));
             } else {
                 name = String.format("%s%s.txt", outputName, intToChar(count - 1));
@@ -95,7 +101,7 @@ class FileDiv extends Spliter {
         reader.close();
     }
 
-    private static void fileDiv(String inputName, String outputName, int countChar, boolean flag) throws IOException {
+    private  void fileDiv( int countChar) throws IOException {
         if (countChar <= 0) throw new IllegalArgumentException("OOOOOOOOPS");
         BufferedReader reader = new BufferedReader(new FileReader(new File(inputName)));
         int count = 0;
@@ -105,8 +111,8 @@ class FileDiv extends Spliter {
             count++;
         }
         int countChars = (count % countChar == 0) ? count / countChar : count / countChar + 1;
-        FileDiv.charDiv(
-                inputName, outputName, countChars, flag);
+        charDiv(
+                countChars);
     }
 }
 
