@@ -35,31 +35,30 @@ public class FileDivTest {
 
 
 
-    @Test (expected =  IllegalArgumentException.class)
+    @Test
     public void run() throws IOException {
         new FileDiv("obama.txt", "kisilevPresident", 100, true, -1, -1).run();
         Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kisel1.txt")));
 
         new FileDiv("obama.txt", "kisilevPresident", -1, true, -1, 10000).run();
         Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseldos1.txt")));
+        try {
 
-        new FileDiv("obama.txt", "kisilevPresident", 0, true, -1, -1).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks1.txt")));
+            new FileDiv("obama.txt", "kisilevPresident", 0, true, -1, -1).run();
+            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks1.txt")));
 
-        new FileDiv("obama.txt", "kisilevPresident", -1, false, 0, -1).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File("src\\main\\resources\\kiseliksa.txt")));
+            new FileDiv("obama.txt", "kisilevPresident", -1, false, 0, -1).run();
+            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File("src\\main\\resources\\kiseliksa.txt")));
 
-        new FileDiv("obama.txt", "kisilevPresident", -1, false, -1, 0).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks123a.txt")));
+            new FileDiv("obama.txt", "kisilevPresident", -1, false, -1, 0).run();
+            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks123a.txt")));
+        }
+        catch (IllegalArgumentException ignored){
+
+        }
 
         new FileDiv("obama.txt", "kisilevPresident", -1, false, 2, -1).run();
         Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks1234a.txt")));
-
-
-
-
-
-
 
     }
 }
