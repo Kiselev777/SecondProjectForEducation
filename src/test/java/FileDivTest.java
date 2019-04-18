@@ -43,7 +43,7 @@ public class FileDivTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void filezero() throws IOException {
+    public void fileZero() throws IOException {
         new FileDiv("obama.txt", "kisilevPresident", -1, false, 0, -1).run();
         Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliksa.txt")).getFile())));
 
