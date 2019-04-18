@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +11,8 @@ public class FileDivTest {
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
+
+    ClassLoader classLoader = getClass().getClassLoader();
 
     static boolean fileEquals(File file, File file2) throws IOException {
         try {
@@ -28,33 +31,64 @@ public class FileDivTest {
                 s2 = reader2.readLine();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lineZero() throws IOException {
+        new FileDiv("obama.txt", "kisilevPresident", 0, true, -1, -1).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliks1.txt")).getFile())));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void filezero() throws IOException {
+        new FileDiv("obama.txt", "kisilevPresident", -1, false, 0, -1).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliksa.txt")).getFile())));
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void charZero() throws IOException {
+        new FileDiv("obama.txt", "kisilevPresident", -1, false, -1, 0).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliks123a.txt")).getFile())));
+
+
+    }
+
+    @Test(expected = IllegalArgumentException.class )
+    public void inputNameError() throws IOException {
+        new FileDiv("someFiles", "kisilevPresident", -1, false, -1, 0).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliks123a.txt")).getFile())));
+
+
     }
 
 
     @Test
     public void run() throws IOException {
         new FileDiv("obama.txt", "kisilevPresident", 100, true, -1, -1).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kisel1.txt")));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File(Objects.requireNonNull(classLoader.getResource("kisel1.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident2.txt"), new File(Objects.requireNonNull(classLoader.getResource("kisel2.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident3.txt"), new File(Objects.requireNonNull(classLoader.getResource("kisel3.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident4.txt"), new File(Objects.requireNonNull(classLoader.getResource("kisel4.txt")).getFile())));
+
 
         new FileDiv("obama.txt", "kisilevPresident", -1, true, -1, 10000).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseldos1.txt")));
-        try {
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseldos1.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident2.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseldos2.txt")).getFile())));
 
-            new FileDiv("obama.txt", "kisilevPresident", 0, true, -1, -1).run();
-            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks1.txt")));
-
-            new FileDiv("obama.txt", "kisilevPresident", -1, false, 0, -1).run();
-            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File("src\\main\\resources\\kiseliksa.txt")));
-
-            new FileDiv("obama.txt", "kisilevPresident", -1, false, -1, 0).run();
-            Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident1.txt"), new File("src\\main\\resources\\kiseliks123a.txt")));
-        } catch (IllegalArgumentException ignored) {
-
-        }
         new FileDiv("obama.txt", "kisilevPresident", -1, false, 2, -1).run();
-        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File("src\\main\\resources\\kiseliks1234a.txt")));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliks1234a.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidentb.txt"), new File(Objects.requireNonNull(classLoader.getResource("kiseliks1234b.txt")).getFile())));
+
+        new FileDiv("obama.txt", null, -1, false, 2, -1).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidenta.txt"), new File(Objects.requireNonNull(classLoader.getResource("xa.txt")).getFile())));
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresidentb.txt"), new File(Objects.requireNonNull(classLoader.getResource("xb.txt")).getFile())));
+
+        new FileDiv("obama.txt", "", 100, true, -1, -1).run();
+        Assert.assertTrue(FileDivTest.fileEquals(new File("kisilevPresident4.txt"), new File(Objects.requireNonNull(classLoader.getResource("4.txt")).getFile())));
+
     }
 }
