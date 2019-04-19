@@ -31,9 +31,9 @@ public class FileDivTest {
         return true;
     }
 
-    File createThisFilePLZ(String s) {
+     private File createThisFilePLZ(String s) {
         ClassLoader classLoader = getClass().getClassLoader();
-        return new File(Objects.requireNonNull(classLoader.getResource(s)).getFile());
+        return new File(classLoader.getResource(s).getFile());
     }
 
     @Test(expected = IllegalArgumentException.class)
